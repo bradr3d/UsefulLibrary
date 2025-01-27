@@ -7,10 +7,8 @@ import UIKit
 
 @available(iOS 13.0, *)
 @MainActor
-public func withOptionalAnimation<Result>(_ animation: Animation? = .default, _ body: () throws -> Result) rethrows -> Result {
-    if UIAccessibility.isReduceMotionEnabled {
-        return try body()
-    } else {
-        return try withAnimation(animation, body)
+extension Animation {
+    func accessible() -> Animation? {
+        UIAccessibility.isReduceMotionEnabled ? nil : self
     }
 }
